@@ -11,11 +11,12 @@ type UseCreateUserType = {
     unknown
   >;
 };
+
 export const useCreateUser = ({ mutationOptions }: UseCreateUserType) => {
   const { mutate, isLoading, isError, isSuccess, data, error, ...rest } =
     useMutation<any, AxiosError, CreateUserRequestType, unknown>(
       createUserService,
-      mutationOptions
+      { ...mutationOptions }
     );
 
   return {
