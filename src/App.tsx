@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./App.css";
 import { CreateUser } from "./libs/users/views/create-user";
+import { UsersList } from "./libs/users/views/users";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
       <Switch>
         <Route path="/create">
           <CreateUser />
+        </Route>
+        <Route exact path="/">
+          <UsersList />
         </Route>
       </Switch>
     </Router>
