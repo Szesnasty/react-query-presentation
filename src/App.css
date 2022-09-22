@@ -86,3 +86,8 @@
 .buttons-container {
   justify-self: end;
 }
+
+.pagination-panel {
+  display: flex;
+  gap: 20px;
+}

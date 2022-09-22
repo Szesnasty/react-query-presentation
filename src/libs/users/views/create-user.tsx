@@ -1,11 +1,19 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useCreateUser } from "../hooks/use-create-user";
 
 export const CreateUser = () => {
+  const queryClient = useQueryClient();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const { mutate, isLoading, isError, error } = useCreateUser({});
+  const { mutate, isLoading, isError, error } = useCreateUser({
+    mutationOptions: {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["users"]);
+      },
+    },
+  });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

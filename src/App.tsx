@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
-import { CreateUser } from "./libs/users/views/create-user";
+
 import { EditUser } from "./libs/users/views/edit-user";
 import { UsersList } from "./libs/users/views/users";
 
@@ -23,19 +23,11 @@ function App() {
                 Users
               </NavLink>
             </li>
-            <li className="navigation-list-element">
-              <NavLink activeClassName="selected" to="/create">
-                Create
-              </NavLink>
-            </li>
           </ul>
         </nav>
         {/* CONTENT */}
         <div className="content-container">
           <Switch>
-            <Route path="/create">
-              <CreateUser />
-            </Route>
             <Route exact path="/">
               <UsersList />
             </Route>

@@ -10,7 +10,7 @@ export const useGetUsers = ({
   const { isLoading, isError, ...rest } = useQuery(
     ["users", pageIndex, pageSize],
     () => getUsersService({ pageIndex, pageSize }),
-    { ...queryOptions }
+    queryOptions ? { ...queryOptions } : {}
   );
 
   return {
