@@ -2,3 +2,87 @@
   text-align: center;
   display: flex;
 }
+
+.main-container {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.navigation-list {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  -webkit-box-shadow: 0px 3px 8px -5px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 3px 8px -5px rgba(66, 68, 90, 1);
+  box-shadow: 0px 3px 8px -5px rgba(66, 68, 90, 1);
+}
+
+.navigation-list-element {
+  padding: 10px;
+}
+.navigation-list-element a {
+  text-decoration: none;
+  color: rgba(66, 68, 90, 1);
+}
+
+.selected {
+  border-bottom: 4px solid rgb(70, 138, 6);
+}
+
+/* ADD USER */
+.add-user-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
+.input-form {
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.add-user-header {
+  margin-top: 0;
+  text-align: center;
+  font-size: 22px;
+}
+
+/* USERS */
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  margin-top: 40px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list-item {
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.buttons-container {
+  justify-self: end;
+}

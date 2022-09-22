@@ -14,12 +14,13 @@ export const CreateUser = () => {
 
   return (
     <>
-      {isLoading && <h2>Loading...</h2>}
-      {isError && <h2>{error?.message}</h2>}
       <div>
-        <h1>Create user</h1>
-        <form onSubmit={handleSubmit}>
+        {isLoading && <h2>Loading...</h2>}
+        {isError && <h2>{error?.message}</h2>}
+        <form className="add-user-form" onSubmit={handleSubmit}>
+          <h1 className="add-user-header">Create user</h1>
           <input
+            className="input-form"
             onChange={(e) => setName(e.target.value)}
             value={name}
             name={"name"}
@@ -27,6 +28,7 @@ export const CreateUser = () => {
             placeholder={"name"}
           />
           <input
+            className="input-form"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             name={"name"}

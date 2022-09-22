@@ -12,7 +12,7 @@ export const UsersList = () => {
     queryOptions: {},
   });
   const queryClient = useQueryClient();
-  const { mutate, isSuccess } = useDeleteUser();
+  const { mutate, isSuccess, variables } = useDeleteUser();
 
   let history = useHistory();
 
@@ -26,23 +26,28 @@ export const UsersList = () => {
     }
   }, [isSuccess, pageIndex, queryClient]);
 
-  console.log("data", data);
+  console.log("data", variables);
   return (
-    <div>
+    <div className="users-container">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        data?.users.map((user: any) => {
-          return (
-            <div key={user.id}>
-              <b>{user.name}</b> {user.email}{" "}
-              <button onClick={() => mutate({ userId: user.id })}>
-                Remove
-              </button>
-              <button onClick={() => handleEdit(user.id)}>Edit</button>
-            </div>
-          );
-        })
+        <div className="list">
+          {data?.users.map((user: any) => {
+            return (
+              <div className="list-item" key={user.id}>
+                <b>{user.name}</b> {user.email}{" "}
+                <div className="buttons-container">
+                  <button onClick={() => mutate({ userId: user.id })}>
+                    Remove
+                  </button>
+
+                  <button onClick={() => handleEdit(user.id)}>Edit</button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
       <button
         disabled={!data?.table[0].prev}
