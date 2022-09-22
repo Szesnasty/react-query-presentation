@@ -26,7 +26,6 @@ export const UsersList = () => {
     }
   }, [isSuccess, pageIndex, queryClient]);
 
-  console.log("data", variables);
   return (
     <div className="users-container">
       {isLoading ? (

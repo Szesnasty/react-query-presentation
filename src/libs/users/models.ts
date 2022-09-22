@@ -28,3 +28,11 @@ export type GetUserServiceRequest = {
 export type DeleteUserRequestType = {
   userId: string;
 };
+
+export type EditUserRequestType = {
+  body: {
+    id: string;
+    name: string;
+    email: string;
+  };
+};
