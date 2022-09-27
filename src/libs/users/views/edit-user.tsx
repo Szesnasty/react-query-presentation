@@ -1,9 +1,13 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { FormEvent, useEffect, useState } from "react";
 
 import { useHistory, useLocation } from "react-router";
-import { useEditUser } from "../hooks/use-edit-user";
+import { toast } from "react-toastify";
+
 import { useGetUser } from "../hooks/use-get-user";
+import { EditUserRequestType } from "../models";
+import { editUserService } from "../services/edit-user-services";
 
 export const EditUser = () => {
   const location = useLocation();
@@ -11,7 +15,7 @@ export const EditUser = () => {
   const queryClient = useQueryClient();
   const [email, setEmail] = useState("");
   const history = useHistory();
-  const { data } = useGetUser(
+  const { data, isLoading: isLoadingUser } = useGetUser(
     location.pathname.split("/")[location.pathname.split("/").length - 1]
   );
 
@@ -22,30 +26,26 @@ export const EditUser = () => {
     }
   }, [location, data]);
 
-  const { mutate, isSuccess } = useEditUser();
+  const { mutate, isLoading } = useMutation<
+    any,
+    AxiosError,
+    EditUserRequestType,
+    unknown
+  >(editUserService, {
+    onSuccess: () => {
+      // queryClient.removeQueries(["users"]);
+      // queryClient.setQueryData(
+      //   [
+      //     "user",
+      //     location.pathname.split("/")[location.pathname.split("/").length - 1],
+      //   ],
+      //   { name: name, email: email }
+      // );
+      toast("User edited!", { type: "success" });
 
-  useEffect(() => {
-    if (isSuccess) {
-      queryClient.removeQueries(["users"]);
-      queryClient.setQueryData(
-        [
-          "user",
-          location.pathname.split("/")[location.pathname.split("/").length - 1],
-        ],
-        { name: name, email: email }
-      );
       history.push(`/`);
-    }
-  }, [
-    data,
-    data,
-    email,
-    history,
-    isSuccess,
-    location.pathname,
-    name,
-    queryClient,
-  ]);
+    },
+  });
 
   const handleEdit = (e: FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
@@ -58,7 +58,11 @@ export const EditUser = () => {
     });
   };
 
-  return (
+  if (isLoading || isLoadingUser) {
+    return <p>Loading</p>;
+  }
+
+  return email && name ? (
     <div>
       <form
         className="add-user-form"
@@ -73,6 +77,7 @@ export const EditUser = () => {
       >
         <h1 className="add-user-header">Edit user</h1>
         <input
+          required
           className="input-form"
           onChange={(e) => setName(e.target.value)}
           value={name}
@@ -81,6 +86,7 @@ export const EditUser = () => {
           placeholder={"name"}
         />
         <input
+          required
           className="input-form"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
@@ -88,10 +94,11 @@ export const EditUser = () => {
           type={"text"}
           placeholder={"email"}
         />
+
         <button className="primary-btn" type={"submit"}>
           Edit
         </button>
       </form>
     </div>
-  );
+  ) : null;
 };

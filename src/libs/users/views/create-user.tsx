@@ -28,6 +28,7 @@ export const CreateUser = () => {
         <form className="add-user-form" onSubmit={handleSubmit}>
           <h1 className="add-user-header">Create user</h1>
           <input
+            required
             className="input-form"
             onChange={(e) => setName(e.target.value)}
             value={name}
@@ -36,6 +37,7 @@ export const CreateUser = () => {
             placeholder={"name"}
           />
           <input
+            required
             className="input-form"
             onChange={(e) => setEmail(e.target.value)}
             value={email}

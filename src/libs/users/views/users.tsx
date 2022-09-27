@@ -26,7 +26,7 @@ export const UsersList = () => {
   useEffect(() => {
     if (isSuccess) {
       queryClient.invalidateQueries(["users"]);
-      toast("User removed!", { type: "success" });
+      toast("User removed!", { type: "success", autoClose: 2000 });
       reset();
     }
   }, [isSuccess, pageIndex, queryClient, reset]);

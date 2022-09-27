@@ -4,7 +4,7 @@ import { getUsersService } from "../services/get-users-service";
 
 export const useGetUsers = ({
   pageIndex = 0,
-  pageSize = 5,
+  pageSize = 2,
   queryOptions,
 }: UseGetUsersProps) => {
   const { isLoading, isError, ...rest } = useQuery(
