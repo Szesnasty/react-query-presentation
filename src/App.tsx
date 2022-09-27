@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 import { EditUser } from "./libs/users/views/edit-user";
+import { Cache } from "./libs/users/views/cache";
 import { UsersList } from "./libs/users/views/users";
 
 function App() {
@@ -25,6 +26,11 @@ function App() {
                 Users
               </NavLink>
             </li>
+            <li className="navigation-list-element">
+              <NavLink exact activeClassName="selected" to="/cache">
+                Cache
+              </NavLink>
+            </li>
           </ul>
         </nav>
         {/* CONTENT */}
@@ -35,6 +41,9 @@ function App() {
             </Route>
             <Route exact path="/edit/:id">
               <EditUser />
+            </Route>
+            <Route exact path="/cache">
+              <Cache />
             </Route>
           </Switch>
         </div>
