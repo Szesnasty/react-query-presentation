@@ -22,9 +22,8 @@ export const EditUser = () => {
     }
   }, [location, data]);
 
-  const { mutate, isSuccess, context } = useEditUser();
+  const { mutate, isSuccess } = useEditUser();
 
-  console.log("elo", context);
   useEffect(() => {
     if (isSuccess) {
       queryClient.removeQueries(["users"]);
@@ -89,7 +88,9 @@ export const EditUser = () => {
           type={"text"}
           placeholder={"email"}
         />
-        <button type={"submit"}>Edytuj</button>
+        <button className="primary-btn" type={"submit"}>
+          Edit
+        </button>
       </form>
     </div>
   );

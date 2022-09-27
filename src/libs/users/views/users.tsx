@@ -1,19 +1,21 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useDeleteUser } from "../hooks/use-delete-user";
 import { useGetUsers } from "../hooks/use-get-users";
 import { CreateUser } from "./create-user";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 export const UsersList = () => {
   const [pageIndex, setPageIndex] = useState(0);
-  const { data, isLoading, isFetching } = useGetUsers({
+  const { data, isLoading } = useGetUsers({
     pageIndex,
     pageSize: 2,
-    queryOptions: { keepPreviousData: true },
+    // queryOptions: { keepPreviousData: true },
   });
   const queryClient = useQueryClient();
-  const { mutate, isSuccess } = useDeleteUser();
+  const { mutate, isSuccess, reset } = useDeleteUser();
 
   let history = useHistory();
 
@@ -24,10 +26,11 @@ export const UsersList = () => {
   useEffect(() => {
     if (isSuccess) {
       queryClient.invalidateQueries(["users"]);
+      toast("User removed!", { type: "success" });
+      reset();
     }
-  }, [isSuccess, pageIndex, queryClient]);
+  }, [isSuccess, pageIndex, queryClient, reset]);
 
-  console.log(isFetching);
   return (
     <>
       <CreateUser />
@@ -40,19 +43,26 @@ export const UsersList = () => {
               {data?.users.map((user: any) => {
                 return (
                   <div className="list-item" key={user.id}>
-                    <b>{user.name}</b> {user.email}{" "}
+                    <b>{user.name}</b> {user.email}
                     <div className="buttons-container">
-                      <button onClick={() => mutate({ userId: user.id })}>
-                        Remove
+                      <button
+                        className="icon-btn"
+                        onClick={() => mutate({ userId: user.id })}
+                      >
+                        <MdDelete className="icon" />
                       </button>
 
-                      <button onClick={() => handleEdit(user.id)}>Edit</button>
+                      <button
+                        className="icon-btn"
+                        onClick={() => handleEdit(user.id)}
+                      >
+                        <MdEdit className="icon" />
+                      </button>
                     </div>
                   </div>
                 );
               })}
             </div>
-            {isFetching && <p>Loadinggggg...</p>}
           </>
         )}
         {data?.users?.length > 0 && (

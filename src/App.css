@@ -46,6 +46,9 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
+  -webkit-box-shadow: 0px 2px 27px -19px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 2px 27px -19px rgba(66, 68, 90, 1);
+  box-shadow: 0px 2px 27px -19px rgba(66, 68, 90, 1);
 }
 
 .input-form {
@@ -81,6 +84,7 @@
   margin-bottom: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
 }
 
 .buttons-container {
@@ -90,4 +94,40 @@
 .pagination-panel {
   display: flex;
   gap: 20px;
+}
+
+.icon-btn {
+  outline: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.primary-btn {
+  outline: none;
+  cursor: pointer;
+  background: rgb(70, 138, 6);
+  border: none;
+  width: 170px;
+  padding: 10px 0px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 18px;
+  align-self: center;
+  -webkit-box-shadow: 0px 3px 27px -19px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 3px 27px -19px rgba(66, 68, 90, 1);
+  box-shadow: 0px 3px 27px -19px rgba(66, 68, 90, 1);
+}
+.primary-btn:hover {
+  -webkit-box-shadow: 0px 3px 24px -14px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 3px 24px -14px rgba(66, 68, 90, 1);
+  box-shadow: 0px 3px 24px -14px rgba(66, 68, 90, 1);
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+.icon:hover {
+  color: rgb(70, 138, 6);
 }

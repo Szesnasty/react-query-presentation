@@ -43,7 +43,9 @@ export const CreateUser = () => {
             type={"text"}
             placeholder={"email"}
           />
-          <button type={"submit"}>Add</button>
+          <button className="primary-btn" type={"submit"}>
+            Add
+          </button>
         </form>
       </div>
     </>
