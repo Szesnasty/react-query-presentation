@@ -27,7 +27,7 @@ export const EditUser = () => {
   }, [location, data]);
 
   const { mutate, isLoading } = useMutation<
-    any,
+    unknown,
     AxiosError,
     EditUserRequestType,
     unknown

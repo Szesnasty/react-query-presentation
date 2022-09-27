@@ -12,6 +12,25 @@ export type GetUsersServiceRequest = {
   pageIndex: number;
 };
 
+export type User = {
+  name: string;
+  email: string;
+  id: string;
+};
+
+type TableType = {
+  next: boolean;
+  pageIndex: number;
+  pageNumber: number;
+  pageSize: number;
+  prev: boolean;
+  total: number;
+};
+export type GetUsersResponse = {
+  users: User[];
+  table: TableType[];
+};
+
 export type UseGetUsersProps = {
   pageIndex: number;
   pageSize: number;
