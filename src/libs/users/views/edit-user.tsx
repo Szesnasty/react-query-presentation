@@ -11,10 +11,12 @@ import { editUserService } from "../services/edit-user-services";
 
 export const EditUser = () => {
   const location = useLocation();
-  const [name, setName] = useState("");
-  const queryClient = useQueryClient();
-  const [email, setEmail] = useState("");
   const history = useHistory();
+  const queryClient = useQueryClient();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   const { data, isLoading: isLoadingUser } = useGetUser(
     location.pathname.split("/")[location.pathname.split("/").length - 1]
   );
@@ -26,26 +28,28 @@ export const EditUser = () => {
     }
   }, [location, data]);
 
-  const { mutate, isLoading } = useMutation<
+  const { mutate, isLoading, isSuccess, reset } = useMutation<
     unknown,
     AxiosError,
     EditUserRequestType,
     unknown
-  >(editUserService, {
-    onSuccess: () => {
-      // queryClient.removeQueries(["users"]);
-      // queryClient.setQueryData(
-      //   [
-      //     "user",
-      //     location.pathname.split("/")[location.pathname.split("/").length - 1],
-      //   ],
-      //   { name: name, email: email }
-      // );
-      toast("User edited!", { type: "success" });
+  >(editUserService);
 
+  useEffect(() => {
+    if (isSuccess) {
+      queryClient.removeQueries(["users"]);
+      queryClient.setQueryData(
+        [
+          "user",
+          location.pathname.split("/")[location.pathname.split("/").length - 1],
+        ],
+        { name: name, email: email }
+      );
+      toast("User edited!", { type: "success" });
+      reset();
       history.push(`/`);
-    },
-  });
+    }
+  }, [email, history, isSuccess, location.pathname, name, queryClient, reset]);
 
   const handleEdit = (e: FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
