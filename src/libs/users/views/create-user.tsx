@@ -1,17 +1,23 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useState } from "react";
-import { useCreateUser } from "../hooks/use-create-user";
+import { CreateUserRequestType } from "../models";
+// import { useCreateUser } from "../hooks/use-create-user";
+import { createUserService } from "../services/create-user-service";
 
 export const CreateUser = () => {
   const queryClient = useQueryClient();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const { mutate, isLoading, isError, error } = useCreateUser({
-    mutationOptions: {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["users"]);
-      },
+  const { mutate, isLoading, isError, error } = useMutation<
+    unknown,
+    AxiosError,
+    CreateUserRequestType,
+    unknown
+  >(createUserService, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
     },
   });
 

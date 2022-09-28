@@ -37,7 +37,7 @@ export const UsersList = () => {
       toast("User removed!", { type: "success", autoClose: 2000 });
       reset();
     }
-  }, [isSuccess, pageIndex, queryClient, reset]);
+  }, [isSuccess, queryClient, reset]);
 
   if (isError && error) {
     return <div>{error.message}</div>;
