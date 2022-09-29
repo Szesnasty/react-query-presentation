@@ -14,10 +14,12 @@ import { deleteUserService } from "../services/delete-user-service";
 export const UsersList = () => {
   const [pageIndex, setPageIndex] = useState(0);
 
-  const { isLoading, data, isError, error } = useQuery<
-    GetUsersResponse,
-    AxiosError
-  >(["users", pageIndex], async () =>
+  const {
+    isLoading,
+    data: usersList,
+    isError,
+    error,
+  } = useQuery<GetUsersResponse, AxiosError>(["users", pageIndex], async () =>
     getUsersService({ pageIndex, pageSize: 2 })
   );
 
@@ -50,50 +52,48 @@ export const UsersList = () => {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <>
-            <div className="list">
-              {data?.users.map((user: any) => {
-                return (
-                  <div className="list-item" key={user.id}>
-                    <b>{user.name}</b> {user.email}
-                    <div className="buttons-container">
-                      <button
-                        className="icon-btn"
-                        onClick={() => mutate({ userId: user.id })}
-                      >
-                        <MdDelete className="icon" />
-                      </button>
+          <div className="list">
+            {usersList?.users.map((user: any) => {
+              return (
+                <div className="list-item" key={user.id}>
+                  <b>{user.name}</b> {user.email}
+                  <div className="buttons-container">
+                    <button
+                      className="icon-btn"
+                      onClick={() => mutate({ userId: user.id })}
+                    >
+                      <MdDelete className="icon" />
+                    </button>
 
-                      <button
-                        className="icon-btn"
-                        onClick={() => handleEdit(user.id)}
-                      >
-                        <MdEdit className="icon" />
-                      </button>
-                    </div>
+                    <button
+                      className="icon-btn"
+                      onClick={() => handleEdit(user.id)}
+                    >
+                      <MdEdit className="icon" />
+                    </button>
                   </div>
-                );
-              })}
-            </div>
-          </>
+                </div>
+              );
+            })}
+          </div>
         )}
-        {data && data?.users?.length > 0 && (
+        {usersList && usersList?.users?.length > 0 && (
           <div className="pagination-panel">
             <button
-              disabled={!data?.table[0].prev}
+              disabled={!usersList?.table[0].prev}
               onClick={() =>
                 setPageIndex((prevNum) =>
-                  data.table[0].prev ? prevNum - 1 : prevNum
+                  usersList.table[0].prev ? prevNum - 1 : prevNum
                 )
               }
             >
               Prev
             </button>
             <button
-              disabled={!data?.table[0].next}
+              disabled={!usersList?.table[0].next}
               onClick={() =>
                 setPageIndex((prevNum) =>
-                  data.table[0].next ? prevNum + 1 : prevNum
+                  usersList.table[0].next ? prevNum + 1 : prevNum
                 )
               }
             >

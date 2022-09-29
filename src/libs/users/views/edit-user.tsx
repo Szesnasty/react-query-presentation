@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { useHistory, useLocation } from "react-router";
 import { toast } from "react-toastify";
+import { getUserId } from "../helpers";
 
 import { useGetUser } from "../hooks/use-get-user";
 import { EditUserRequestType } from "../models";
@@ -18,7 +19,7 @@ export const EditUser = () => {
   const [email, setEmail] = useState("");
 
   const { data, isLoading: isLoadingUser } = useGetUser(
-    location.pathname.split("/")[location.pathname.split("/").length - 1]
+    getUserId(location.pathname)
   );
 
   useEffect(() => {
@@ -38,13 +39,10 @@ export const EditUser = () => {
   useEffect(() => {
     if (isSuccess) {
       queryClient.removeQueries(["users"]);
-      queryClient.setQueryData(
-        [
-          "user",
-          location.pathname.split("/")[location.pathname.split("/").length - 1],
-        ],
-        { name: name, email: email }
-      );
+      queryClient.setQueryData(["user", getUserId(location.pathname)], {
+        name: name,
+        email: email,
+      });
       toast("User edited!", { type: "success" });
       reset();
       history.push(`/`);
